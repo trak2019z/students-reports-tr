@@ -14,7 +14,6 @@ namespace StudentsReports.Domain.Models
         public string Name { get; set; }
         public string TeacherId { get; set; }
 
-        public Users Teacher { get; set; }
         public ICollection<Reports> Reports { get; set; }
     }
 }

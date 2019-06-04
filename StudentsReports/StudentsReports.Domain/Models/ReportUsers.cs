@@ -9,6 +9,5 @@ namespace StudentsReports.Domain.Models
         public string UserId { get; set; }
 
         public Reports Report { get; set; }
-        public Users User { get; set; }
     }
 }

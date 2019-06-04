@@ -12,6 +12,5 @@ namespace StudentsReports.Domain.Models
 
         public Courses Course { get; set; }
         public CoursesTypes CourseType { get; set; }
-        public Users User { get; set; }
     }
 }
