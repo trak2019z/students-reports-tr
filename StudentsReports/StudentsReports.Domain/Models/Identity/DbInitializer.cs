@@ -13,19 +13,19 @@ namespace StudentsReports.Domain.Models.Identity
         {
             if (!userManager.Users.Any())
             {
-               if (!await roleManager.RoleExistsAsync(UserType.Administrator.ToString()))
+               if (!await roleManager.RoleExistsAsync(UserType.Administrator))
                {
-                    await roleManager.CreateAsync(new Roles(UserType.Administrator.ToString()));
+                    await roleManager.CreateAsync(new Roles(UserType.Administrator));
                }
 
-                if (!await roleManager.RoleExistsAsync(UserType.Teacher.ToString()))
+                if (!await roleManager.RoleExistsAsync(UserType.Teacher))
                 {
-                    await roleManager.CreateAsync(new Roles(UserType.Teacher.ToString()));
+                    await roleManager.CreateAsync(new Roles(UserType.Teacher));
                 }
 
-                if (!await roleManager.RoleExistsAsync(UserType.Student.ToString()))
+                if (!await roleManager.RoleExistsAsync(UserType.Student))
                 {
-                    await roleManager.CreateAsync(new Roles(UserType.Student.ToString()));
+                    await roleManager.CreateAsync(new Roles(UserType.Student));
                 }
 
 
@@ -43,7 +43,7 @@ namespace StudentsReports.Domain.Models.Identity
 
                     if (result.Succeeded)
                     {
-                       await userManager.AddToRoleAsync(user, UserType.Administrator.ToString());
+                       await userManager.AddToRoleAsync(user, UserType.Administrator);
                     }
                 }
             }

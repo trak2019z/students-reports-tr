@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using StudentsReports.Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,13 +11,13 @@ namespace StudentsReports.Domain.IRepositories
 {
     public class UsersRepository : IUsersRepository
     {
-        private UserManager<Users> usersManager;
-        private RoleManager<IdentityRole> roleManager;
+        private UserManager<Users> _usersManager;
+        private RoleManager<IdentityRole> _roleManager;
 
         public UsersRepository(UserManager<Users> usersManager, RoleManager<IdentityRole> roleManager)
         {
-            this.usersManager = usersManager;
-            this.roleManager = roleManager;
+            this._usersManager = usersManager;
+            this._roleManager = roleManager;
         }
 
         public Task Add(Users user)
@@ -31,7 +32,7 @@ namespace StudentsReports.Domain.IRepositories
 
         public List<Users> GetAll()
         {
-            throw new NotImplementedException();
+            return _usersManager.Users.ToList();
         }
 
         public Users GetById(int id)
