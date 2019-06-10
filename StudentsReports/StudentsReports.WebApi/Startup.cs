@@ -77,9 +77,8 @@ namespace StudentsReports.WebApi
             services.AddSingleton(mapper);
 
             #region Repositories
-
             services.AddTransient<IUsersRepository, UsersRepository>();
-            
+            services.AddTransient<IRolesRepository, RolesRepository>();
             #endregion
         }
 

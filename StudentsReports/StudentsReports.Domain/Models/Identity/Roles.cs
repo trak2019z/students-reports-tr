@@ -9,6 +9,6 @@ namespace StudentsReports.Domain.Models
     {
         public Roles(string roleName) : base(roleName)
         {
-        }
+        }       
     }
 }

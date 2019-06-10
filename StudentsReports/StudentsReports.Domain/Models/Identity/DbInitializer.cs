@@ -13,19 +13,19 @@ namespace StudentsReports.Domain.Models.Identity
         {
             if (!userManager.Users.Any())
             {
-               if (!await roleManager.RoleExistsAsync(UserType.Administrator))
+               if (!await roleManager.RoleExistsAsync(UserRoles.Administrator))
                {
-                    await roleManager.CreateAsync(new Roles(UserType.Administrator));
+                    await roleManager.CreateAsync(new Roles(UserRoles.Administrator));
                }
 
-                if (!await roleManager.RoleExistsAsync(UserType.Teacher))
+                if (!await roleManager.RoleExistsAsync(UserRoles.Teacher))
                 {
-                    await roleManager.CreateAsync(new Roles(UserType.Teacher));
+                    await roleManager.CreateAsync(new Roles(UserRoles.Teacher));
                 }
 
-                if (!await roleManager.RoleExistsAsync(UserType.Student))
+                if (!await roleManager.RoleExistsAsync(UserRoles.Student))
                 {
-                    await roleManager.CreateAsync(new Roles(UserType.Student));
+                    await roleManager.CreateAsync(new Roles(UserRoles.Student));
                 }
 
 
@@ -36,14 +36,16 @@ namespace StudentsReports.Domain.Models.Identity
 
                         UserName = "administrator",
                         FirstName = "Administrator",
-                        LastName = "Administrator"
+                        LastName = "Administrator",
+                        DateCreated = DateTime.Now,
+                        DateModified = DateTime.Now
                     };
 
                    var result =  await userManager.CreateAsync(user, "bu^5@GA.7sBn5S#P$cb@");
 
                     if (result.Succeeded)
                     {
-                       await userManager.AddToRoleAsync(user, UserType.Administrator);
+                       await userManager.AddToRoleAsync(user, UserRoles.Administrator);
                     }
                 }
             }

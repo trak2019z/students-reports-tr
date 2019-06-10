@@ -12,7 +12,12 @@ namespace StudentsReports.WebApi.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<Users, User>();
+            CreateMap<Domain.Models.UsersView, WebApi.Models.UsersView.Users>();
+            CreateMap<WebApi.Models.CreateUser, Domain.Models.Users>();
+            CreateMap<WebApi.Models.UpdateUser, Domain.Models.Users>();
+            CreateMap<Domain.Models.UserDetails, WebApi.Models.UserDetails>();
+
+            CreateMap<WebApi.Helpers.Pager, Domain.Helpers.Pager>();
         }
     }
 }

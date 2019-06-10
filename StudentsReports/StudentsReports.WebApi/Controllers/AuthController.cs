@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using StudentsReports.Domain.Models;
+using StudentsReports.WebApi.Helpers;
 
 namespace StudentsReports.WebApi.Controllers
 {
@@ -35,9 +36,14 @@ namespace StudentsReports.WebApi.Controllers
         {           
             var user = await _userManager.FindByNameAsync(login.UserName);
 
-            if (user == null || !await _userManager.CheckPasswordAsync(user, login.Password))
+            if (user == null)
             {
-                return Unauthorized();
+                return NotFound();
+            }
+
+            if (!await _userManager.CheckPasswordAsync(user, login.Password))
+            {
+                return BadRequest(ResponseMessage.IncorrectPassword);
             }
 
             var roles = await _userManager.GetRolesAsync(user);
