@@ -18,6 +18,9 @@ namespace StudentsReports.WebApi.Mappings
             CreateMap<Domain.Models.UserDetails, WebApi.Models.UserDetails>();
 
             CreateMap<WebApi.Helpers.Pager, Domain.Helpers.Pager>();
+
+            CreateMap<WebApi.Models.Course, Domain.Models.Courses>();
+            CreateMap<Domain.Models.Courses, WebApi.Models.CoursesView>();
         }
     }
 }

@@ -43,7 +43,7 @@ namespace StudentsReports.WebApi.Controllers
 
             if (!await _userManager.CheckPasswordAsync(user, login.Password))
             {
-                return BadRequest(ResponseMessage.IncorrectPassword);
+                return BadRequest(ResponseMessage.IncorrectUserNameOrPassword);
             }
 
             var roles = await _userManager.GetRolesAsync(user);

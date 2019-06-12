@@ -20,6 +20,7 @@ using Microsoft.IdentityModel.Tokens;
 using StudentsReports.Domain.IRepositories;
 using StudentsReports.Domain.Models;
 using StudentsReports.Domain.Models.Identity;
+using StudentsReports.Domain.Repositories;
 using StudentsReports.WebApi.Mappings;
 
 namespace StudentsReports.WebApi
@@ -76,9 +77,13 @@ namespace StudentsReports.WebApi
             var mapper = config.CreateMapper();
             services.AddSingleton(mapper);
 
+            var context = new StudentsReportsContext();
+            services.AddSingleton(context);
+
             #region Repositories
             services.AddTransient<IUsersRepository, UsersRepository>();
             services.AddTransient<IRolesRepository, RolesRepository>();
+            services.AddTransient<ICoursesRepository, CoursesRepository>();
             #endregion
         }
 
@@ -95,7 +100,7 @@ namespace StudentsReports.WebApi
             {
                 var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
                 var userManager = serviceScope.ServiceProvider.GetService<UserManager<Users>>();
-
+           
                 DbInitializer.Seed(userManager, roleManager).GetAwaiter().GetResult();
             }
         }

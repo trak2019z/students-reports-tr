@@ -18,18 +18,17 @@ namespace StudentsReports.Domain.Models.Identity
                     await roleManager.CreateAsync(new Roles(UserRoles.Administrator));
                }
 
-                if (!await roleManager.RoleExistsAsync(UserRoles.Teacher))
+               if (!await roleManager.RoleExistsAsync(UserRoles.Teacher))
                 {
                     await roleManager.CreateAsync(new Roles(UserRoles.Teacher));
                 }
 
-                if (!await roleManager.RoleExistsAsync(UserRoles.Student))
+               if (!await roleManager.RoleExistsAsync(UserRoles.Student))
                 {
                     await roleManager.CreateAsync(new Roles(UserRoles.Student));
                 }
 
-
-                if(await userManager.FindByNameAsync("administrator") == null)
+               if(await userManager.FindByNameAsync("administrator") == null)
                 {
                     Users user = new Users()
                     {
@@ -48,6 +47,30 @@ namespace StudentsReports.Domain.Models.Identity
                        await userManager.AddToRoleAsync(user, UserRoles.Administrator);
                     }
                 }
+
+               
+            }
+
+            var context = new StudentsReportsContext();
+
+            if (!context.CoursesTypes.Any())
+            {
+                context.CoursesTypes.Add(new CoursesTypes
+                {
+                    Name = "Laboratorium"
+                });
+
+                context.CoursesTypes.Add(new CoursesTypes
+                {
+                    Name = "Ćwiczenia"
+                });
+
+                context.CoursesTypes.Add(new CoursesTypes
+                {
+                    Name = "Projekt"
+                });
+
+                context.SaveChanges();
             }
         }
     }

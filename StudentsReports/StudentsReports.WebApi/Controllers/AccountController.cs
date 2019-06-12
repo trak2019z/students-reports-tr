@@ -48,7 +48,7 @@ namespace StudentsReports.WebApi.Controllers
 
             if (!checkPassword)
             {
-                return BadRequest(ResponseMessage.IncorrectPassword);
+                return BadRequest(ResponseMessage.IncorrectUserNameOrPassword);
             }
 
             bool result = await _usersRepository.ChangePassword(user, model.Password, model.NewPassword);

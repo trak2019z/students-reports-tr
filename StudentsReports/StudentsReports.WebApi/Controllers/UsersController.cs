@@ -45,7 +45,7 @@ namespace StudentsReports.WebApi.Controllers
             Users user = await _usersRepository.GetByName(model.UserName);
             if (user != null)
             {
-                return Conflict(ResponseMessage.UserAlreadyExist);
+                return Conflict(ResponseMessage.UserAlreadyExists);
             }
 
             user = _mapper.Map<Users>(model);
@@ -80,7 +80,7 @@ namespace StudentsReports.WebApi.Controllers
 
             if (role == null)
             {
-                return BadRequest(ResponseMessage.RoleNotExist);
+                return BadRequest(ResponseMessage.RoleNotExists);
             }
 
             user = _mapper.Map<UpdateUser, Users>(model, user);

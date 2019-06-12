@@ -27,17 +27,17 @@ namespace StudentsReports.Domain.IRepositories
 
         public async Task Add(Users user, string password, string roleId)
         {
-                var result = await _usersManager.CreateAsync(user, password);
+            var result = await _usersManager.CreateAsync(user, password);
 
-                if (result.Succeeded)
+            if (result.Succeeded)
+            {
+                var role = await _roleManager.FindByIdAsync(roleId);
+
+                if (role != null)
                 {
-                    var role = await _roleManager.FindByIdAsync(roleId);
-
-                    if (role != null)
-                    {
-                        await _usersManager.AddToRoleAsync(user, role.Name);
-                    }
+                    await _usersManager.AddToRoleAsync(user, role.Name);
                 }
+            }
         }
 
         public async Task Delete(Users user)
