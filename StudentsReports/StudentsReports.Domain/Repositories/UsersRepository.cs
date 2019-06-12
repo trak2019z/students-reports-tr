@@ -160,5 +160,16 @@ namespace StudentsReports.Domain.IRepositories
 
             return true;
         }
+
+        public async Task<bool> IsInRole(string userId, string roleName)
+        {
+            var user = await _usersManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                return false;
+            }
+            return await _usersManager.IsInRoleAsync(user, roleName);
+        }
     }
 }

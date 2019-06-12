@@ -18,5 +18,6 @@ namespace StudentsReports.Domain.IRepositories
         Task<UserDetails> GetDetails(string id);
         Task<bool> ChangePassword(Users user, string currentPassword, string newPassword);
         Task<bool> CheckPassword(Users user, string currentPassword);
+        Task<bool> IsInRole(string userId, string roleName);
     }
 }
