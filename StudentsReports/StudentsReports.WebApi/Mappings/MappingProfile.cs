@@ -21,7 +21,9 @@ namespace StudentsReports.WebApi.Mappings
 
             CreateMap<WebApi.Models.Course, Domain.Models.Courses>();
             CreateMap<Domain.Models.Courses, WebApi.Models.CoursesView>();
+
             CreateMap<WebApi.Models.TeacherCourse, Domain.Models.TeacherCourses>();
+            CreateMap<Domain.Models.TeacherCoursesView, WebApi.Models.TeacherCoursesView.TeacherCourses>();
         }
     }
 }

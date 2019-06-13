@@ -74,7 +74,7 @@ namespace StudentsReports.WebApi.Controllers
                 return NotFound();
             }
 
-            record = _mapper.Map<TeacherCourse, Domain.Models.TeacherCourses>(model, record);
+            record = _mapper.Map(model, record);
 
             bool exists = _teacherCoursesRepository.Exists(record, id);
 
@@ -86,6 +86,24 @@ namespace StudentsReports.WebApi.Controllers
             _teacherCoursesRepository.Update(record);
 
             return Ok();
+        }
+
+        [HttpGet]       
+        public IActionResult GetAll([FromQuery] Helpers.Pager query)
+        {
+            var pager = _mapper.Map<Domain.Helpers.Pager>(query);
+
+            var records = _teacherCoursesRepository.GetAll(pager);
+
+            var items = _mapper.Map<List<Models.TeacherCoursesView.TeacherCourses>>(records);
+
+            var result = new Models.TeacherCoursesView
+            {
+                Items = items,
+                TotalItems = pager.TotalItems
+            };
+
+            return Ok(result);
         }
     }
 }
