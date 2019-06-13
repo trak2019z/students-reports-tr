@@ -18,7 +18,7 @@ namespace StudentsReports.WebApi.Controllers
     [ApiController]
     public class TeacherCoursesController : ControllerBase
     {
-        private IMapper _mapper;      
+        private IMapper _mapper;
         private ITeacherCoursesRepository _teacherCoursesRepository;
         private IUsersRepository _usersRepository;
 
@@ -88,7 +88,7 @@ namespace StudentsReports.WebApi.Controllers
             return Ok();
         }
 
-        [HttpGet]       
+        [HttpGet]
         public IActionResult GetAll([FromQuery] Helpers.Pager query)
         {
             var pager = _mapper.Map<Domain.Helpers.Pager>(query);
@@ -104,6 +104,31 @@ namespace StudentsReports.WebApi.Controllers
             };
 
             return Ok(result);
+        }
+
+        [Authorize(Roles = UserRoles.Student)]
+        [HttpPost]
+        [Route("{id}/assign")]
+        public IActionResult Asign(int id)
+        {
+            var record = _teacherCoursesRepository.GetById(id);
+
+            if (record == null)
+            {
+                return NotFound();
+            }
+
+            var user = _usersRepository.GetByName(HttpContext.User.Identity.Name).GetAwaiter().GetResult();
+
+            var item = new StudentCourses
+            {
+                CourseId = id,
+                UserId = user.Id
+            };
+
+            _teacherCoursesRepository.AssignToCourse(item);
+
+            return Ok();
         }
     }
 }

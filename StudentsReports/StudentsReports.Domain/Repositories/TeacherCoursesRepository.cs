@@ -25,6 +25,12 @@ namespace StudentsReports.Domain.Repositories
             _context.SaveChanges();
         }
 
+        public void AssignToCourse(StudentCourses record)
+        {
+            _context.Add(record);
+            _context.SaveChanges();
+        }
+
         public bool Exists(TeacherCourses course, int? id = null)
         {
             var result = _context.TeacherCourses.Where(x => x.UserId == course.UserId &&

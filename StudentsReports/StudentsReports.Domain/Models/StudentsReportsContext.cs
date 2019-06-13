@@ -28,7 +28,7 @@ namespace StudentsReports.Domain.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=(local)\\SQLEXPRESS;Database=StudentsReports;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=(local)\\SQLEXPRESS;Database=StudentsReports;Trusted_Connection=True");
             }
         }
 
@@ -61,7 +61,7 @@ namespace StudentsReports.Domain.Models
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.StudentCourses)
                     .HasForeignKey(d => d.CourseId)
-                    .HasConstraintName("FK_dbo.StudentCourses_dbo.Courses_CourseId");
+                    .HasConstraintName("FK_dbo.StudentCourses_dbo.TeacherCourses_CourseId");
             });
 
             modelBuilder.Entity<Subjects>(entity =>
@@ -70,12 +70,15 @@ namespace StudentsReports.Domain.Models
                     .IsRequired()
                     .HasMaxLength(255);
 
-                entity.Property(e => e.TeacherId).HasMaxLength(450);
+                entity.HasOne(d => d.TeacherCourse)
+                    .WithMany(p => p.Subjects)
+                    .HasForeignKey(d => d.TeacherCourseId)
+                    .HasConstraintName("FK_dbo.Subjects_dbo.TeacherCourses_TeacherCourseId");
             });
 
             modelBuilder.Entity<TeacherCourses>(entity =>
             {
-                entity.Property(e => e.UserId).HasMaxLength(128);
+                entity.Property(e => e.UserId).HasMaxLength(450);
 
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.TeacherCourses)

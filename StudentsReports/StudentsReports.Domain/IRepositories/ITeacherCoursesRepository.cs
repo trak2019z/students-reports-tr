@@ -13,5 +13,6 @@ namespace StudentsReports.Domain.IRepositories
         TeacherCourses GetById(int id);
         bool Exists(TeacherCourses course, int? id = null);
         IEnumerable<TeacherCoursesView> GetAll(Pager pager);
+        void AssignToCourse(StudentCourses record);
     }
 }

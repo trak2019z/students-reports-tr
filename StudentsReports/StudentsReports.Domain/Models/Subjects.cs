@@ -12,8 +12,9 @@ namespace StudentsReports.Domain.Models
 
         public int Id { get; set; }
         public string Name { get; set; }
-        public string TeacherId { get; set; }
+        public int? TeacherCourseId { get; set; }
 
+        public TeacherCourses TeacherCourse { get; set; }
         public ICollection<Reports> Reports { get; set; }
     }
 }
