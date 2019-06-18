@@ -14,5 +14,6 @@ namespace StudentsReports.Domain.IRepositories
         bool Exists(TeacherCourses course, int? id = null);
         IEnumerable<TeacherCoursesView> GetAll(Pager pager);
         void AssignToCourse(StudentCourses record);
+        void AddSubject(Subjects record);
     }
 }

@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using StudentsReports.Domain.Models;
 using StudentsReports.WebApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,6 +26,9 @@ namespace StudentsReports.WebApi.Mappings
 
             CreateMap<WebApi.Models.TeacherCourse, Domain.Models.TeacherCourses>();
             CreateMap<Domain.Models.TeacherCoursesView, WebApi.Models.TeacherCoursesView.TeacherCourses>();
+
+            CreateMap<Domain.Models.ReportsView, WebApi.Models.ReportsView.Reports>()
+                .ForMember(x => x.FilePath, opts => opts.MapFrom(src => string.Concat("Files", "/", src.FileId, "/", src.FileName)));
         }
     }
 }

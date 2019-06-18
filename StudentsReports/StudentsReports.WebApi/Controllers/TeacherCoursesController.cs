@@ -109,7 +109,7 @@ namespace StudentsReports.WebApi.Controllers
         [Authorize(Roles = UserRoles.Student)]
         [HttpPost]
         [Route("{id}/assign")]
-        public IActionResult Asign(int id)
+        public IActionResult Assign(int id)
         {
             var record = _teacherCoursesRepository.GetById(id);
 
@@ -127,6 +127,41 @@ namespace StudentsReports.WebApi.Controllers
             };
 
             _teacherCoursesRepository.AssignToCourse(item);
+
+            return Ok();
+        }
+
+        [Authorize(Roles = UserRoles.Teacher)]
+        [HttpPost]
+        [Route("{id}/subject")]
+        public IActionResult AddSubject([FromBody] string name, int id)
+        {
+            if (String.IsNullOrEmpty(name))
+            {
+                return BadRequest();
+            }
+
+            var record = _teacherCoursesRepository.GetById(id);
+
+            if (record == null)
+            {
+                return NotFound();
+            }
+
+            var user = _usersRepository.GetByName(HttpContext.User.Identity.Name).GetAwaiter().GetResult();
+
+            if (record.UserId != user.Id)
+            {
+                return Forbid();
+            }
+           
+            var item = new Subjects
+            {
+               Name = name,
+               TeacherCourseId = record.Id
+            };
+
+            _teacherCoursesRepository.AddSubject(item);
 
             return Ok();
         }

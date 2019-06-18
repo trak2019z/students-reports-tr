@@ -25,6 +25,12 @@ namespace StudentsReports.Domain.Repositories
             _context.SaveChanges();
         }
 
+        public void AddSubject(Subjects record)
+        {
+            _context.Add(record);
+            _context.SaveChanges();
+        }
+
         public void AssignToCourse(StudentCourses record)
         {
             _context.Add(record);

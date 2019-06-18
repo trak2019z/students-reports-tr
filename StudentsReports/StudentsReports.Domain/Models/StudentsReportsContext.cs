@@ -36,7 +36,21 @@ namespace StudentsReports.Domain.Models
         {
             modelBuilder.Entity<Reports>(entity =>
             {
+                entity.HasIndex(e => e.FileId)
+                    .HasName("Reports_FileId")
+                    .IsUnique();
+
+                entity.Property(e => e.Comment).HasMaxLength(255);
+
                 entity.Property(e => e.Date).HasColumnType("datetime");
+
+                entity.Property(e => e.FileId)
+                    .IsRequired()
+                    .HasMaxLength(64);
+
+                entity.Property(e => e.FileName).HasMaxLength(255);
+
+                entity.Property(e => e.Mark).HasMaxLength(16);
 
                 entity.HasOne(d => d.Subject)
                     .WithMany(p => p.Reports)

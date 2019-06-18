@@ -85,6 +85,7 @@ namespace StudentsReports.WebApi
             services.AddTransient<IRolesRepository, RolesRepository>();
             services.AddTransient<ICoursesRepository, CoursesRepository>();
             services.AddTransient<ITeacherCoursesRepository, TeacherCoursesRepository>();
+            services.AddTransient<IReportsRepository, ReportsRepository>();
             #endregion
         }
 
